@@ -1,0 +1,25 @@
+// Add Shortcode
+function subform() {
+    // Get the current user's ID
+    $current_user_id = get_current_user_id();
+
+    // Get the user's information based on the ID
+    $current_user = get_userdata($current_user_id);
+    
+    // Get the user's first name or display 'Guest' if not available
+    $user_display_name = !empty($current_user->first_name) ? $current_user->first_name : 'Guest';
+
+    // Get the blog name
+    $blog_name = get_bloginfo('name');
+
+    // Display the welcome message and subscription form
+    echo '<p>Hey ' . esc_html($user_display_name) . ', welcome to ' . esc_html($blog_name) . '! You can subscribe to our newsletter here:</p>';
+    ?>
+    <form action="/thank-you">
+        <label for="email">Enter your email:</label>
+        <input type="email" id="email" name="email">
+        <input type="submit" value="Submit">
+    </form>
+    <?php
+}
+add_shortcode('subscriptionform', 'subform');
